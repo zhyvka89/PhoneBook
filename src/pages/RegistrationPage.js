@@ -1,10 +1,12 @@
 import { useState } from 'react';
+// import { useSignupUserMutation } from '../redux/user/user-slice';
 
 export default function RegistrationPage() {
   // const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [signupUser] = useSignupUserMutation();
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -21,6 +23,7 @@ export default function RegistrationPage() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    // signupUser({name, email, password});
     // dispatch(authOperations.register({ name, email, password }));
     setName('');
     setEmail('');

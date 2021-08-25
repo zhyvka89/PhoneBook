@@ -10,8 +10,11 @@ const store = configureStore({
     [contactsApi.reducerPath]: contactsApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(contactsApi.middleware),
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    contactsApi.middleware,
+    usersApi.middleware,
+  ],
   devTools: process.env.NODE_ENV === 'development',
 });
 
