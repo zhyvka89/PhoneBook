@@ -1,39 +1,40 @@
-import { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
-// import Form from './components/Form';
-import ContactsPage from './pages/ContactsPage';
+import { Suspense, lazy } from 'react';
+import { Switch } from 'react-router-dom';
+
 import Layout from './components/Layout/Layout';
-import HomePage from './pages/HomePage';
-import RegistrationPage from './pages/RegistrationPage';
-import LoginPage from './pages/LoginPage';
 import AppBar from './components/AppBar/AppBar';
+import PrivateRoute from './components/PrivateRout';
+import PublicRoute from './components/PublicRout';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const RegistrationPage = lazy(() => import('./pages/RegistrationPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const ContactsPage = lazy(() => import('./pages/ContactsPage/ContactsPage'));
 
 export default function App() {
   return (
     <Layout>
       <AppBar />
-      {/* <h1>PhoneBook</h1> */}
-      {/* <Form /> */}
-      <Suspense>
+
+      <Suspense fallback={<div>Loading...</div>}>
         <Switch>
-          <Route exact path="/">
+          <PublicRoute exact path="/">
             <HomePage />
-          </Route>
+          </PublicRoute>
 
-          <Route path="/register">
+          <PublicRoute path="/register">
             <RegistrationPage />
-          </Route>
+          </PublicRoute>
 
-          <Route path="/login">
+          <PublicRoute path="/login" redirectTo="/contacts" restricted>
             <LoginPage />
-          </Route>
+          </PublicRoute>
 
-          <Route path="/contacts">
+          <PrivateRoute path="/contacts" redirectTo="/login">
             <ContactsPage />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Suspense>
-      {/* <h2>Contacts</h2> */}
     </Layout>
   );
 }

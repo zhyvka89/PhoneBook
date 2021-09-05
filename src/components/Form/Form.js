@@ -2,15 +2,11 @@ import { useState } from 'react';
 import {
   useGetContactsQuery,
   useAddContactMutation,
-} from '../../redux/phonebook/phonebook-slice';
-
-// import { useDispatch, useSelector } from 'react-redux';
-// import { addContact } from '../../redux/phonebook/phonebook-operations';
-// import { getContacts } from '../../redux/phonebook/phonebook-selectors';
+} from '../../redux/phonebook/phonebookApi';
 
 import styles from './Form.module.css';
 
-export default function Form() {
+export default function Form({ onCloseModal }) {
   const [contactName, setContactName] = useState('');
   const [number, setNumber] = useState('');
   const { data: contacts } = useGetContactsQuery();
@@ -32,18 +28,20 @@ export default function Form() {
 
   const handleSubmit = event => {
     event.preventDefault();
+    if (contacts) {
+      const isExistedName = contacts.find(
+        contact => contact.name.toLowerCase() === contactName.toLowerCase(),
+      );
 
-    const isExistedName = contacts.find(
-      contact => contact.name.toLowerCase() === contactName.toLowerCase(),
-    );
+      if (isExistedName) {
+        alert(contactName + ' is already in your contacts');
+        return;
+      }
 
-    if (isExistedName) {
-      alert(contactName + ' is already in your contacts');
-      return;
+      addContact({ name: contactName, number });
     }
-
-    addContact(contactName, number);
     reset();
+    onCloseModal();
   };
 
   const reset = () => {
@@ -52,7 +50,7 @@ export default function Form() {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} autoComplete="off" onSubmit={handleSubmit}>
       <label className={styles.label}>
         Name
         <input
@@ -66,6 +64,7 @@ export default function Form() {
           required
         />
       </label>
+
       <label className={styles.label}>
         Phone Number
         <input

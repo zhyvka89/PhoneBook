@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import { Button } from '@material-ui/core';
 // import { useGetContactsQuery } from '../../redux/phonebook/phonebook-slice';
 
-import ContactList from '../components/ContactList';
-import Filter from '../components/Filter';
-import Form from '../components/Form/Form';
-import Modal from '../components/Modal/Modal';
+import ContactList from '../../components/ContactList';
+import Filter from '../../components/Filter';
+import Form from '../../components/Form/Form';
+import Modal from '../../components/Modal/Modal';
 import {
   useGetContactsQuery,
   useDeleteContactMutation,
-} from '../redux/phonebook/phonebook-slice';
+} from '../../redux/phonebook/phonebookApi';
 
 export default function ContactsPage() {
   const [filter, setFilter] = useState('');
@@ -34,21 +35,31 @@ export default function ContactsPage() {
 
   return (
     <>
-      {showModal && (
-        <Modal onCloseModal={toggleModal}>
-          <Form />
-        </Modal>
-      )}
       <Filter filterValue={filter} onChange={handleFilterOnChange} />
+
       {contacts && (
         <ContactList
           contacts={getFilteredContacts()}
           onDelete={deleteContact}
         />
       )}
-      <button type="button" onClick={toggleModal}>
-        Add New Contact
-      </button>
+
+      <div>
+        <Button
+          variant="contained"
+          color="primary"
+          type="button"
+          onClick={toggleModal}
+        >
+          Add New Contact
+        </Button>
+      </div>
+
+      {showModal && (
+        <Modal onCloseModal={toggleModal}>
+          <Form onCloseModal={toggleModal} />
+        </Modal>
+      )}
     </>
   );
 }

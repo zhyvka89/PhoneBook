@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+
 import styles from './Modal.module.css';
+
 export default function Modal({ children, onCloseModal }) {
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);

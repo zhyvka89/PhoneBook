@@ -1,26 +1,36 @@
 // import React from 'react';
 // import { useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-// import { useGetContactsQuery } from '../../redux/phonebook/phonebook-slice';
+// import { useGetContactsQuery } from '../../redux/phonebook/phonebookApi';
 
-// import { filterContact } from '../../redux/phonebook/phonebook-actions';
-// import { getFilter } from '../../redux/phonebook/phonebook-selectors';
+import TextField from '@material-ui/core/TextField';
 
 import styles from './Filter.module.css';
 
-export default function Filter({ filterValue, handleFilterOnChange }) {
+export default function Filter({ filterValue, onChange }) {
   // const value = useSelector(getFilter);
   // const dispatch = useDispatch();
 
   return (
-    <label className={styles.label}>
-      Find contacts by name
-      <input
-        className={styles.input}
+    <div className={styles.filterContainer}>
+      <TextField
+        id="text"
+        label="Filter"
         type="text"
         value={filterValue}
-        onChange={handleFilterOnChange}
+        onChange={onChange}
+        variant="filled"
       />
-    </label>
+    </div>
+
+    // <label className={styles.label}>
+    //   Find contacts by name
+    //   <input
+    //     className={styles.input}
+    //     type="text"
+    //     value={filterValue}
+    //     onChange={handleFilterOnChange}
+    //   />
+    // </label>
   );
 }
