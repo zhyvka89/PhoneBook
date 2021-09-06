@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { Switch } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
@@ -8,9 +8,6 @@ import PublicRoute from './components/PublicRout';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { getToken, setCredentials, setCurrentUser } from './redux/authSlice';
-import { useGetCurrentUserQuery } from './redux/user/userApi';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const RegistrationPage = lazy(() => import('./pages/RegistrationPage'));
@@ -28,14 +25,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function App() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const isToken = useSelector(getToken);
-  const { data: user } = useGetCurrentUserQuery(isToken);
-  console.log(user);
-
-  useEffect(() => {
-    isToken && dispatch(setCurrentUser(user));
-  }, [dispatch, isToken, user]);
 
   return (
     <Layout>

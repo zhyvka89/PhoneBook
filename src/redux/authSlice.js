@@ -19,8 +19,8 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     removeCredentials: () => initState,
-    setCurrentUser: (state, { payload: user }) => {
-      state.user = user;
+    setCurrentUser: (state, { payload }) => {
+      state.user = { ...payload };
       state.isLoggedIn = true;
     },
   },
