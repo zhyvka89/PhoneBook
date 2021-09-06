@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/RegistrationForm/RegistrationForm.module.css"],"names":[],"mappings":"AAAA,gCACE,UACF,CAEA,uCACE,gBAAiB,CACjB,iBACF","file":"7.2b08aa0e.chunk.css","sourcesContent":[".button {\n  margin: 8px;\n}\n\n.formContainer {\n  padding-top: 30px;\n  text-align: center;\n}\n"]}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/LoginForm/LoginForm.module.css"],"names":[],"mappings":"AAAA,gCACE,gBAAiB,CACjB,iBACF,CAEA,yBACE,UACF","file":"6.f6b9cfd6.chunk.css","sourcesContent":[".formContainer {\n  padding-top: 30px;\n  text-align: center;\n}\n\n.button {\n  margin: 8px;\n}\n"]}
