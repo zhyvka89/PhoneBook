@@ -16,11 +16,12 @@ export default function UserMenu() {
 
   return (
     <div className={styles.menu}>
-      <span>Добро пожаловать, {name}</span>
+      <span className={styles.text}>Welcome, {name}</span>
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         type="button"
+        size="small"
         onClick={handleBtnClick}
       >
         Log Out

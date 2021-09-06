@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+}
+
+.button {
+  padding-top: 30px;
+}

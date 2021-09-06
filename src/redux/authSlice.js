@@ -19,13 +19,17 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     removeCredentials: () => initState,
+    setCurrentUser: (state, { payload: user }) => {
+      state.user = user;
+      state.isLoggedIn = true;
+    },
   },
-  extraReducers: builder => {},
 });
 
 export default authSlice.reducer;
 
-export const { setCredentials, removeCredentials } = authSlice.actions;
+export const { setCredentials, removeCredentials, setCurrentUser } =
+  authSlice.actions;
 
 export const getUserName = state => state.auth.user.name;
 export const getToken = state => state.auth.token;

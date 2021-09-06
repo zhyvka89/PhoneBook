@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Button } from '@material-ui/core';
-// import { useGetContactsQuery } from '../../redux/phonebook/phonebook-slice';
+
+import { IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import ContactList from '../../components/ContactList';
 import Filter from '../../components/Filter';
@@ -10,6 +12,8 @@ import {
   useGetContactsQuery,
   useDeleteContactMutation,
 } from '../../redux/phonebook/phonebookApi';
+
+import styles from './ContactsPage.module.css';
 
 export default function ContactsPage() {
   const [filter, setFilter] = useState('');
@@ -35,7 +39,17 @@ export default function ContactsPage() {
 
   return (
     <>
-      <Filter filterValue={filter} onChange={handleFilterOnChange} />
+      <div className={styles.container}>
+        <Filter filterValue={filter} onChange={handleFilterOnChange} />
+
+        <div className={styles.button}>
+          <IconButton edge="start" aria-label="delete" onClick={toggleModal}>
+            <Tooltip title="Add new Contact" aria-label="add">
+              <AddIcon color="secondary" fontSize="large" />
+            </Tooltip>
+          </IconButton>
+        </div>
+      </div>
 
       {contacts && (
         <ContactList
@@ -43,17 +57,6 @@ export default function ContactsPage() {
           onDelete={deleteContact}
         />
       )}
-
-      <div>
-        <Button
-          variant="contained"
-          color="primary"
-          type="button"
-          onClick={toggleModal}
-        >
-          Add New Contact
-        </Button>
-      </div>
 
       {showModal && (
         <Modal onCloseModal={toggleModal}>
