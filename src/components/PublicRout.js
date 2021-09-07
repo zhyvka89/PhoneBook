@@ -13,7 +13,6 @@ export default function PublicRoute({
   return (
     <Route {...routProps}>
       {renderFlag ? <Redirect to={redirectTo} /> : children}
-      {children}
     </Route>
   );
 }

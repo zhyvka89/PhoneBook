@@ -11,7 +11,6 @@ export default function PrivateRoute({
   return (
     <Route {...routeProps}>
       {isLogedIn ? children : <Redirect to={redirectTo} />}
-      {children}
     </Route>
   );
 }
