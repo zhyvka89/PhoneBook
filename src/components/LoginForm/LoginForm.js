@@ -43,53 +43,59 @@ export default function LoginForm() {
       const { data } = await loginUser({ email, password });
       dispatch(setCredentials(data));
     } catch (error) {
-      //
+      alert(`${error.message}`);
     }
+    reset();
+  }
 
+  function reset() {
     setEmail('');
     setPassword('');
   }
 
   return (
-    <div className={styles.formContainer}>
-      <form
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <TextField
-          required
-          id="filled-required"
-          label="E-mail"
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-          variant="filled"
-        />
+    <>
+      <h2 className={styles.title}>Login Form</h2>
+      <div className={styles.formContainer}>
+        <form
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            id="filled-required"
+            label="E-mail"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            variant="filled"
+          />
 
-        <TextField
-          id="filled-password-input"
-          label="Password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-          variant="filled"
-        />
+          <TextField
+            id="filled-password-input"
+            label="Password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            variant="filled"
+          />
 
-        <div className={styles.button}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            size="large"
-          >
-            Log In
-          </Button>
-        </div>
-      </form>
-    </div>
+          <div className={styles.button}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              size="large"
+            >
+              Log In
+            </Button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

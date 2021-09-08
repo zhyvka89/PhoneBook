@@ -38,9 +38,9 @@ export default function App() {
         }
       >
         <Switch>
-          <PublicRoute exact path="/">
+          <PrivateRoute exact path="/">
             <HomePage />
-          </PublicRoute>
+          </PrivateRoute>
 
           <PublicRoute path="/register" restricted>
             <RegistrationPage />
