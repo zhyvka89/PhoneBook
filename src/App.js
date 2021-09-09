@@ -38,17 +38,21 @@ export default function App() {
         }
       >
         <Switch>
-          <PrivateRoute exact path="/">
-            <HomePage />
-          </PrivateRoute>
+          <PublicRoute path="/" exact>
+            <h1>Hello, for continue to work, please register</h1>
+          </PublicRoute>
 
-          <PublicRoute path="/register" restricted>
+          <PublicRoute path="/register" redirectTo="/login" restricted>
             <RegistrationPage />
           </PublicRoute>
 
           <PublicRoute path="/login" redirectTo="/contacts" restricted>
             <LoginPage />
           </PublicRoute>
+
+          <PrivateRoute path="/home">
+            <HomePage />
+          </PrivateRoute>
 
           <PrivateRoute path="/contacts" redirectTo="/login">
             <ContactsPage />

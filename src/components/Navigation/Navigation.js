@@ -11,7 +11,7 @@ const Navigation = () => {
       {isLoggedIn && (
         <>
           <NavLink
-            to="/"
+            to="/home"
             exact
             className={styles.link}
             activeClassName={styles.activeLink}

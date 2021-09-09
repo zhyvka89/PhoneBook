@@ -1,19 +1,15 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Button, TextField } from '@material-ui/core';
 
-import {
-  useSignupUserMutation,
-  useLoginUserMutation,
-} from '../../redux/user/userApi';
-import { setCredentials } from '../../redux/authSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useSignupUserMutation } from '../../redux/user/userApi';
 
 import styles from './RegistrationForm.module.css';
-import { useDispatch } from 'react-redux';
-import { Redirect } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,16 +22,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function RegistrationForm() {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const history = useHistory();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignedUp, setIsSignedUp] = useState(false);
 
-  const [createUser, { isError }] = useSignupUserMutation();
-  const [loginUser] = useLoginUserMutation();
-  // console.log(isSuccess);
+  const [createUser] = useSignupUserMutation();
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
@@ -50,34 +43,35 @@ export default function RegistrationForm() {
     }
   };
 
-  async function loginNewUser() {
-    try {
-      const { data } = await loginUser({ email, password });
-      dispatch(setCredentials(data));
-    } catch (error) {
-      //
-    }
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    createUser({ name, email, password });
-
-    isError
-      ? alert(`User with this e-mail ${email} is already exist!`)
-      : loginNewUser();
-
+  const reset = () => {
     setName('');
     setEmail('');
     setPassword('');
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    createUser({ name, email, password })
+      .unwrap()
+      .then(() => {
+        toast.success('Registration is successes! Now LogIn');
+
+        setInterval(() => {
+          history.push('/login');
+        }, 2000);
+      })
+      .catch(() => {
+        toast.error(`Bad Request or user ${name} is already exist!`);
+      });
+
+    reset();
+  };
+
   return (
     <>
-      <h2 className={styles.title}>
-        Please, sign up for using your personal phonebook
-      </h2>
+      <ToastContainer />
+      <h2 className={styles.title}>Please, sign up</h2>
       <div className={styles.formContainer}>
         <form
           className={classes.root}

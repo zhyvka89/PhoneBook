@@ -22,8 +22,10 @@ const useStyles = makeStyles(theme => ({
 export default function LoginForm() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [loginUser] = useLoginUserMutation();
 
   const handleChange = ({ target: { name, value } }) => {
@@ -55,7 +57,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <h2 className={styles.title}>Login Form</h2>
+      <h2 className={styles.title}>LogIn for using your personal phonebook</h2>
       <div className={styles.formContainer}>
         <form
           className={classes.root}
