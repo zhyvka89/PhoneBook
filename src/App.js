@@ -39,7 +39,7 @@ export default function App() {
       >
         <Switch>
           <PublicRoute path="/" exact>
-            <h1>Hello, for continue to work, please register</h1>
+            <h1>Hello, start to work</h1>
           </PublicRoute>
 
           <PublicRoute path="/register" redirectTo="/login" restricted>
